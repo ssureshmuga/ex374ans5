@@ -1,0 +1,13 @@
+---
+- name: User creation
+  hosts: dev
+  become: yes
+  vars_files:
+    user_list.yml
+  tasks:
+    - name: User creation play
+      ansible.builtin.user:
+        name: "{{ item.name }}"
+        comment: "{{ item.job }}"
+        state: present
+      loop: "{{ users }}"
